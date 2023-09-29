@@ -154,6 +154,36 @@ public class BinaryTreeBasics {
         return myInfo;
     }
 
+    public static boolean isSubtree(Node root, Node subRoot) {
+        if (subRoot == null) {
+            return true;
+        }
+        if (root == null) {
+            return false;
+        }
+        if (root.data == subRoot.data) {
+            if (isIdentical(root, subRoot)) {
+                return true;
+            }
+        }
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    public static boolean isIdentical(Node root, Node subRoot) { // when root.data==subaroot.data check subtree of both
+                                                                 // is same or not
+
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null) {
+            return false;
+        }
+        if (root.data == subRoot.data) {
+            return isIdentical(root.left, subRoot.left) && isIdentical(root.right, subRoot.right);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
@@ -191,6 +221,7 @@ public class BinaryTreeBasics {
 
         System.out.println("Diameter of Tree(optimized way) : " + diameter2(root).diam);
 
+        // check if Tree2 is subtree of Tree1
+        System.out.println("check if Tree2 is subtree of Tree1 : " + isSubtree(root, subRoot));
     }
-
 }
